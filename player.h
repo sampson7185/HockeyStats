@@ -5,8 +5,8 @@ typedef struct skater {
     char *firstName;
     char *lastName;
     int age;
-    char *position;
-    char *team;
+    char position[3];
+    char team[4];
     int gamesPlayed;
     int goals;
     int assists;
@@ -16,6 +16,10 @@ typedef struct skater {
     int goals5v5;
     int PPgoals;
     int SHgoals;
+    int gameWinningGoals;
+    int assists5v5;
+    int PPassists;
+    int SHassists;
     int shots;
     long shootingPercentage;
     int iceTime;
@@ -32,7 +36,7 @@ typedef struct goalie {
     char *firstName;
     char *lastName;
     int age;
-    char *team;
+    char team[4];
     int gamesPlayed;
     int gamesStarted;
     int wins;

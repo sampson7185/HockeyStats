@@ -5,4 +5,4 @@
 
 typedef enum { false, true } bool;
 
-void test();
+void readSkaterFile(char *fileName);

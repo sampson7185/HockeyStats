@@ -1,6 +1,6 @@
 #include "HockeyStats.h"
 
 int main(int argc, char const *argv[]) {
-    test();
+    readSkaterFile("SkaterStats.csv");
     return 0;
 }
