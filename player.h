@@ -21,14 +21,14 @@ typedef struct skater {
     int PPassists;
     int SHassists;
     int shots;
-    long shootingPercentage;
+    float shootingPercentage;
     int iceTime;
-    int avgIceTime;
+    float avgIceTime;
     int blocks;
     int hits;
     int faceoffWins;
     int faceoffLosses;
-    long faceoffPercentage;
+    float faceoffPercentage;
     struct skater *next;
 }skater;
 
