@@ -18,5 +18,4 @@ skater *tokenizeSkaterFile(char *buffer) {
 
     token = strtok(buffer, " ");
     newSkater->firstName = malloc(strlen(token) + 1);
-    new change;
 }
