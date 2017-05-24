@@ -1,11 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+typedef enum { false, true } bool;
+
 typedef struct skater {
     char *firstName;
     char *lastName;
     int age;
-    char position[3];
+    char *position;
     char team[4];
     int gamesPlayed;
     int goals;

@@ -3,12 +3,34 @@
 void readSkaterFile(char *fileName) {
     FILE *skaterFile;
     skater *newSkater;
+    skater *head;
     char buffer[255];
 
     skaterFile = fopen(fileName, "r");
 
-    fgets(buffer, 255, skaterFile);
-    newSkater = tokenizeSkater(buffer);
+    while(fgets(buffer, 255, skaterFile) != NULL) {
+        printf("%s\n", buffer);
+        newSkater = tokenizeSkater(buffer);
+        /*insertSkater(head, newSkater);*/
+    }
+
+    printf("Name: %s %s\nAge: %d\nPosition: %s\nTeam: %s\nGames Played: %d\n\
+Goals: %d\nAssists: %d\nPoints: %d\nPlus-Minus: %d\nPenalty Minutes: %d\n\
+5v5 Goals: %d\nPowerplay Goals: %d\nShorthanded Goals: %d\n\
+Game Winning Goals: %d\n5v5 Assists: %d\nPowerplay Assists: %d\n\
+Shorthanded Assists: %d\nShots: %d\nShooting Percentage: %.1f\n\
+Ice Time: %d\nAverage Ice Time: %.2f\nBlocks: %d\nHits: %d\n\
+Faceoff Wins: %d\nFaceoff Losses: %d\nFaceoff Percentage: %.1f\n",
+    newSkater->firstName, newSkater->lastName, newSkater->age,
+    newSkater->position, newSkater->team, newSkater->gamesPlayed,
+    newSkater->goals, newSkater->assists, newSkater->points,
+    newSkater->plusMinus, newSkater->penaltyMinutes, newSkater->goals5v5,
+    newSkater->PPgoals, newSkater->SHgoals, newSkater->gameWinningGoals,
+    newSkater->assists5v5, newSkater->PPassists, newSkater->SHassists,
+    newSkater->shots, newSkater->shootingPercentage, newSkater->iceTime,
+    newSkater->avgIceTime, newSkater->blocks, newSkater->hits,
+    newSkater->faceoffWins, newSkater->faceoffLosses,
+    newSkater->faceoffPercentage);
 
     fclose(skaterFile);
     return;
@@ -29,6 +51,7 @@ skater *tokenizeSkater(char *buffer) {
     token = strtok(NULL, ",");
     newSkater->age = strtol(token, &end, 10);
     token = strtok(NULL, ",");
+    newSkater->position = malloc(strlen(token) + 1);
     strcpy(newSkater->position, token);
     token = strtok(NULL, ",");
     strcpy(newSkater->team, token);
@@ -78,23 +101,6 @@ skater *tokenizeSkater(char *buffer) {
     newSkater->faceoffLosses = strtol(token, &end, 10);
     token = strtok(NULL, ",");
     newSkater->faceoffPercentage = strtod(token, NULL);
-    printf("Name: %s %s\nAge: %d\nPosition: %s\nTeam: %s\nGames Played: %d\n\
-Goals: %d\nAssists: %d\nPoints: %d\nPlus-Minus: %d\nPenalty Minutes: %d\n\
-5v5 Goals: %d\nPowerplay Goals: %d\nShorthanded Goals: %d\n\
-Game Winning Goals: %d\n5v5 Assists: %d\nPowerplay Assists: %d\n\
-Shorthanded Assists: %d\nShots: %d\nShooting Percentage: %.1f\n\
-Ice Time: %d\nAverage Ice Time: %.2f\nBlocks: %d\nHits: %d\n\
-Faceoff Wins: %d\nFaceoff Losses: %d\nFaceoff Percentage: %.1f\n",
-    newSkater->firstName, newSkater->lastName, newSkater->age,
-    newSkater->position, newSkater->team, newSkater->gamesPlayed,
-    newSkater->goals, newSkater->assists, newSkater->points,
-    newSkater->plusMinus, newSkater->penaltyMinutes, newSkater->goals5v5,
-    newSkater->PPgoals, newSkater->SHgoals, newSkater->gameWinningGoals,
-    newSkater->assists5v5, newSkater->PPassists, newSkater->SHassists,
-    newSkater->shots, newSkater->shootingPercentage, newSkater->iceTime,
-    newSkater->avgIceTime, newSkater->blocks, newSkater->hits,
-    newSkater->faceoffWins, newSkater->faceoffLosses,
-    newSkater->faceoffPercentage);
     return newSkater;
 }
 
