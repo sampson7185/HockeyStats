@@ -49,65 +49,82 @@ skater *tokenizeSkater(char *buffer) {
     newSkater->lastName = malloc(strlen(token) + 1);
     strcpy(newSkater->lastName, token);
     token = strtok(NULL, ",");
-    newSkater->age = strtol(token, &end, 10);
+    newSkater->age = convertInt(token);
     token = strtok(NULL, ",");
     newSkater->position = malloc(strlen(token) + 1);
     strcpy(newSkater->position, token);
     token = strtok(NULL, ",");
     strcpy(newSkater->team, token);
     token = strtok(NULL, ",");
-    newSkater->gamesPlayed = strtol(token, &end, 10);
+    newSkater->gamesPlayed = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->goals = strtol(token, &end, 10);
+    newSkater->goals = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->assists = strtol(token, &end, 10);
+    newSkater->assists = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->points = strtol(token, &end, 10);
+    newSkater->points = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->plusMinus = strtol(token, &end, 10);
+    newSkater->plusMinus = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->penaltyMinutes = strtol(token, &end, 10);
+    newSkater->penaltyMinutes = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->goals5v5 = strtol(token, &end, 10);
+    newSkater->goals5v5 = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->PPgoals = strtol(token, &end, 10);
+    newSkater->PPgoals = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->SHgoals = strtol(token, &end, 10);
+    newSkater->SHgoals = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->gameWinningGoals = strtol(token, &end, 10);
+    newSkater->gameWinningGoals = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->assists5v5 = strtol(token, &end, 10);
+    newSkater->assists5v5 = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->PPassists = strtol(token, &end, 10);
+    newSkater->PPassists = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->SHassists = strtol(token, &end, 10);
+    newSkater->SHassists = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->shots = strtol(token, &end, 10);
+    newSkater->shots = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->shootingPercentage = strtod(token, NULL);
+    newSkater->shootingPercentage = convertFloat(token);
     token = strtok(NULL, ",");
-    newSkater->iceTime = strtol(token, &end, 10);
+    newSkater->iceTime = convertInt(token);
     token = strtok(NULL, ":");
-    newSkater->avgIceTime = strtod(token, NULL);
+    newSkater->avgIceTimeI = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->avgIceTime += convertSecondtoDecimal(token);
+    newSkater->avgIceTimeF = convertSecondtoDecimal(token);
     token = strtok(NULL, ",");
-    newSkater->blocks = strtol(token, &end, 10);
+    newSkater->blocks = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->hits = strtol(token, &end, 10);
+    newSkater->hits = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->faceoffWins = strtol(token, &end, 10);
+    newSkater->faceoffWins = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->faceoffLosses = strtol(token, &end, 10);
+    newSkater->faceoffLosses = convertInt(token);
     token = strtok(NULL, ",");
-    newSkater->faceoffPercentage = strtod(token, NULL);
+    newSkater->faceoffPercentage = convertFloat(token);
     return newSkater;
 }
 
 float convertSecondtoDecimal(char *target) {
     float converted, temp;
 
-    temp = strtod(target, NULL);
-    converted = temp / 60.0;
-    return converted;
+    if (target != NULL) {
+        temp = strtod(target, NULL);
+        converted = temp / 60.0;
+        return converted;
+    }
+    return NULL;
+}
+
+int convertInt(char *token) {
+    char *end;
+
+    if (token != NULL)
+        return strtol(token, &end, 10);
+    return NULL;
+}
+
+float convertFloat(char *token) {
+    if (token != NULL)
+        return strtod(target, NULL);
+    return NULL;
 }

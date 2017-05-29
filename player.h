@@ -25,7 +25,8 @@ typedef struct skater {
     int shots;
     float shootingPercentage;
     int iceTime;
-    float avgIceTime;
+    int avgIceTimeI;
+    float avgIceTimeF;
     int blocks;
     int hits;
     int faceoffWins;
