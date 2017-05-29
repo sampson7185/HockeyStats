@@ -7,3 +7,5 @@
 void readSkaterFile(char *fileName);
 skater *tokenizeSkater(char *buffer);
 float convertSecondtoDecimal(char *target);
+int convertInt(char *target);
+float convertFloat(char *target);

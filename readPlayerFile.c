@@ -19,7 +19,7 @@ Goals: %d\nAssists: %d\nPoints: %d\nPlus-Minus: %d\nPenalty Minutes: %d\n\
 5v5 Goals: %d\nPowerplay Goals: %d\nShorthanded Goals: %d\n\
 Game Winning Goals: %d\n5v5 Assists: %d\nPowerplay Assists: %d\n\
 Shorthanded Assists: %d\nShots: %d\nShooting Percentage: %.1f\n\
-Ice Time: %d\nAverage Ice Time: %.2f\nBlocks: %d\nHits: %d\n\
+Ice Time: %d\nAverage Ice Time: %d\nBlocks: %d\nHits: %d\n\
 Faceoff Wins: %d\nFaceoff Losses: %d\nFaceoff Percentage: %.1f\n",
     newSkater->firstName, newSkater->lastName, newSkater->age,
     newSkater->position, newSkater->team, newSkater->gamesPlayed,
@@ -28,7 +28,7 @@ Faceoff Wins: %d\nFaceoff Losses: %d\nFaceoff Percentage: %.1f\n",
     newSkater->PPgoals, newSkater->SHgoals, newSkater->gameWinningGoals,
     newSkater->assists5v5, newSkater->PPassists, newSkater->SHassists,
     newSkater->shots, newSkater->shootingPercentage, newSkater->iceTime,
-    newSkater->avgIceTime, newSkater->blocks, newSkater->hits,
+    newSkater->avgIceTimeI, newSkater->blocks, newSkater->hits,
     newSkater->faceoffWins, newSkater->faceoffLosses,
     newSkater->faceoffPercentage);
 
@@ -39,7 +39,6 @@ Faceoff Wins: %d\nFaceoff Losses: %d\nFaceoff Percentage: %.1f\n",
 skater *tokenizeSkater(char *buffer) {
     char *token;
     skater *newSkater;
-    char *end;
 
     newSkater = malloc(sizeof(skater));
     token = strtok(buffer, " ");
@@ -112,19 +111,19 @@ float convertSecondtoDecimal(char *target) {
         converted = temp / 60.0;
         return converted;
     }
-    return NULL;
+    return 0.0;
 }
 
-int convertInt(char *token) {
+int convertInt(char *target) {
     char *end;
 
-    if (token != NULL)
-        return strtol(token, &end, 10);
-    return NULL;
+    if (target != NULL)
+        return strtol(target, &end, 10);
+    return 0;
 }
 
-float convertFloat(char *token) {
-    if (token != NULL)
+float convertFloat(char *target) {
+    if (target != NULL)
         return strtod(target, NULL);
-    return NULL;
+    return 0.0;
 }
