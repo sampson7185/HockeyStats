@@ -3,44 +3,30 @@
 void readSkaterFile(char *fileName) {
     FILE *skaterFile;
     skater *newSkater;
-    skater *head;
+    skater *head = NULL;
     char buffer[255];
+    int longestName;
 
     skaterFile = fopen(fileName, "r");
 
     while(fgets(buffer, 255, skaterFile) != NULL) {
         printf("%s\n", buffer);
-        newSkater = tokenizeSkater(buffer);
-        /*insertSkater(head, newSkater);*/
+        newSkater = tokenizeSkater(buffer, &longestName);
+        insertSkater(&head, newSkater);
     }
-
-    printf("Name: %s %s\nAge: %d\nPosition: %s\nTeam: %s\nGames Played: %d\n\
-Goals: %d\nAssists: %d\nPoints: %d\nPlus-Minus: %d\nPenalty Minutes: %d\n\
-5v5 Goals: %d\nPowerplay Goals: %d\nShorthanded Goals: %d\n\
-Game Winning Goals: %d\n5v5 Assists: %d\nPowerplay Assists: %d\n\
-Shorthanded Assists: %d\nShots: %d\nShooting Percentage: %.1f\n\
-Ice Time: %d\nAverage Ice Time: %d\nBlocks: %d\nHits: %d\n\
-Faceoff Wins: %d\nFaceoff Losses: %d\nFaceoff Percentage: %.1f\n",
-    newSkater->firstName, newSkater->lastName, newSkater->age,
-    newSkater->position, newSkater->team, newSkater->gamesPlayed,
-    newSkater->goals, newSkater->assists, newSkater->points,
-    newSkater->plusMinus, newSkater->penaltyMinutes, newSkater->goals5v5,
-    newSkater->PPgoals, newSkater->SHgoals, newSkater->gameWinningGoals,
-    newSkater->assists5v5, newSkater->PPassists, newSkater->SHassists,
-    newSkater->shots, newSkater->shootingPercentage, newSkater->iceTime,
-    newSkater->avgIceTimeI, newSkater->blocks, newSkater->hits,
-    newSkater->faceoffWins, newSkater->faceoffLosses,
-    newSkater->faceoffPercentage);
+    printSkatersGridFormat(head, longestName);
 
     fclose(skaterFile);
     return;
 }
 
-skater *tokenizeSkater(char *buffer) {
+skater *tokenizeSkater(char *buffer, int *longestName) {
     char *token;
-    skater *newSkater;
+    skater *newSkater = NULL;
+    int nameLength;
 
-    newSkater = malloc(sizeof(skater));
+    newSkater = createSkater();
+
     token = strtok(buffer, " ");
     newSkater->firstName = malloc(strlen(token) + 1);
     strcpy(newSkater->firstName, token);
@@ -100,6 +86,9 @@ skater *tokenizeSkater(char *buffer) {
     newSkater->faceoffLosses = convertInt(token);
     token = strtok(NULL, ",");
     newSkater->faceoffPercentage = convertFloat(token);
+    nameLength = strlen(newSkater->firstName) + strlen(newSkater->lastName);
+    if (nameLength > (*longestName))
+        (*longestName) = nameLength;
     return newSkater;
 }
 
@@ -126,4 +115,22 @@ float convertFloat(char *target) {
     if (target != NULL)
         return strtod(target, NULL);
     return 0.0;
+}
+
+/*constructor for skater*/
+skater *createSkater() {
+    skater *newSkater;
+
+    newSkater = malloc(sizeof(skater));
+    if (newSkater != NULL) {
+        newSkater->firstName = NULL;
+        newSkater->lastName = NULL;
+        newSkater->position = NULL;
+        newSkater->next = NULL;
+    }
+    else {
+        printf("Failed to allocate memory, try again\n");
+        exit(1);
+    }
+    return newSkater;
 }
