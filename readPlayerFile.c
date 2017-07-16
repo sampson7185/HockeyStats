@@ -10,7 +10,6 @@ void readSkaterFile(char *fileName) {
     skaterFile = fopen(fileName, "r");
 
     while(fgets(buffer, 255, skaterFile) != NULL) {
-        printf("%s\n", buffer);
         newSkater = tokenizeSkater(buffer, &longestName);
         insertSkater(&head, newSkater);
     }
