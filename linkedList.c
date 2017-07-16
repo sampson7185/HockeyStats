@@ -54,7 +54,7 @@ void printSkatersGridFormat(skater *head, int longestName) {
     for (i = 0; i < longestName - 2; i++) {
         printf(" ");
     }
-    printf("Age Pos   Team GP G  A  P   +/-  PM  G5V5 PPG SHG GWG A5V5 PPA SHA SH  SH%% IT   AIT BLK HIT FOW FOL FO%%\n");
+    printf("Age Pos   Team GP G  A  P   +/-  PM  G5V5 PPG SHG GWG A5V5 PPA SHA SH  SH%%  IT   AIT   BLK HIT FOW  FOL  FO%%\n");
     while (ptr->next != NULL) {
         avgIceTime = ptr->avgIceTimeI + ptr->avgIceTimeF;
         nameBuffer = longestName - (strlen(ptr->firstName) + strlen(ptr->lastName) + 1);
@@ -97,7 +97,21 @@ void printSkatersGridFormat(skater *head, int longestName) {
         checkDoubleDigit3space(ptr->SHassists);
         printf("%d", ptr->shots);
         checkTripleDigit(ptr->shots);
-        printf("\n");
+        printf("%.1f", ptr->shootingPercentage);
+        checkFloatLength(ptr->shootingPercentage);
+        printf("%d", ptr->iceTime);
+        checkQuadDigit(ptr->iceTime);
+        printf("%.2f", avgIceTime);
+        checkFloatLength(avgIceTime);
+        printf("%d", ptr->blocks);
+        checkTripleDigit(ptr->blocks);
+        printf("%d", ptr->hits);
+        checkTripleDigit(ptr->hits);
+        printf("%d", ptr->faceoffWins);
+        checkQuadDigit(ptr->faceoffWins);
+        printf("%d", ptr->faceoffLosses);
+        checkQuadDigit(ptr->faceoffLosses);
+        printf("%.1f\n", ptr->faceoffPercentage);
         ptr = ptr->next;
     }
 }
@@ -140,6 +154,30 @@ void checkPlusMinus(int target) {
         else {
             printf("   ");
         }
+    }
+    else if (target / 10 > 0) {
+        printf("   ");
+    }
+    else {
+        printf("    ");
+    }
+}
+
+void checkFloatLength(float target) {
+    if (target / 10 >= 1) {
+        printf(" ");
+    }
+    else {
+        printf("  ");
+    }
+}
+
+void checkQuadDigit(int target) {
+    if (target / 1000 > 0) {
+        printf(" ");
+    }
+    else if (target / 100 > 0) {
+        printf("  ");
     }
     else if (target / 10 > 0) {
         printf("   ");

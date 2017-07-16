@@ -11,3 +11,5 @@ void checkDoubleDigit2space(int target);
 void checkDoubleDigit3space(int target);
 void checkTripleDigit(int target);
 void checkPlusMinus(int target);
+void checkFloatLength(float target);
+void checkQuadDigit(int target);
